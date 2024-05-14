@@ -1,4 +1,6 @@
-const config = require('./config.json');
+require('dotenv').config();
+const token = process.env.TOKEN
+const test = process.env.TEST
 const { kaniUranai } = require('./functions');
 const fs = require('fs');
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
@@ -76,4 +78,4 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
-client.login(config.token);
+client.login(token)
