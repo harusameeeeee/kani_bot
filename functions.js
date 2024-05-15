@@ -11,7 +11,7 @@ function kaniUranai() {
 
         result = `${firstWord}${secondWord}カニ`;
     }
-    return `あなたは  ${result}  です`;
+    return `あなたは   **${result}**   です`;
 }
 
 module.exports = {
