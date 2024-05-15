@@ -56,11 +56,6 @@ client.on("messageCreate", async msg => {
             .then(() => console.log("リアクションがつけられました"))
             .catch(console.error)
     }
-
-    if (msg.content.toLowerCase().includes("カニ占い")) {
-        msg.reply(kaniUranai())
-        return
-    }
 });
 
 client.on('interactionCreate', async interaction => {
