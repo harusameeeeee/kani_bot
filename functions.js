@@ -1,5 +1,4 @@
-import seedrandom from 'seedrandom';
-
+const seedrandom = require('seedrandom');
 const { firstWords, secondWords } = require("./strings/words.js");
 
 function kaniUranai() {
