@@ -1,3 +1,5 @@
+import seedrandom from 'seedrandom';
+
 const { firstWords, secondWords } = require("./strings/words.js");
 
 function kaniUranai() {
@@ -5,9 +7,11 @@ function kaniUranai() {
     if (Math.random() < 1 / 20) {
         result = "エビ";
     } else {
-        const firstWord = firstWords[Math.floor(Math.random() * firstWords.length)];
-        const secondWord =
-            secondWords[Math.floor(Math.random() * secondWords.length)];
+        // シード付き乱数生成器の初期化
+        const rng = seedrandom();
+
+        const firstWord = firstWords[Math.floor(rng() * firstWords.length)];
+        const secondWord = secondWords[Math.floor(rng() * secondWords.length)];
 
         result = `${firstWord}${secondWord}カニ`;
     }
