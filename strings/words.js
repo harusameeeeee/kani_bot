@@ -41,7 +41,7 @@ const secondWords = [
   '勇敢な',
   'オシャレな',
   'ご機嫌な',
-  ''
+  '巨大な'
 ];
 
 module.exports = {
