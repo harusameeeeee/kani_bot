@@ -3,7 +3,9 @@ const { firstWords, secondWords } = require("./strings/words.js");
 
 function kaniUranai() {
     // シード付き乱数生成器の初期化
-    const rng = seedrandom();
+    const seed = new Date().getTime(); // 時刻とカウンタを組み合わせる
+    const rng = seedrandom(seed);
+    
     let result;
     if (rng() < 1 / 50) {
         result = "アルティメットハイパーシャイニングミラクルゴッドカニ";
