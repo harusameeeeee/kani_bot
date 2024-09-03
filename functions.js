@@ -12,8 +12,8 @@ function kaniUranai() {
         const shuffledFirstWords = shuffleArray([...firstWords]);
         const shuffledSecondWords = shuffleArray([...secondWords]);
 
-        const firstWord = shuffledFirstWords[Math.round(rng() * firstWords.length)];
-        const secondWord = shuffledSecondWords[Math.round(rng() * secondWords.length)];
+        const firstWord = shuffledFirstWords[Math.floor(rng() * firstWords.length)];
+        const secondWord = shuffledSecondWords[Math.floor(rng() * secondWords.length)];
 
         result = `${firstWord}${secondWord}カニ`;
     }
