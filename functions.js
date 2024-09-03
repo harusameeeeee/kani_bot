@@ -2,7 +2,8 @@ const seedrandom = require('seedrandom');
 const { firstWords, secondWords } = require("./strings/words.js");
 
 function kaniUranai() {
-    const rng = seedrandom(); // シードを指定しない場合、ランダムな値が生成されます
+    const rng1 = seedrandom(); 
+    const rng2 = seedrandom();// シードを指定しない場合、ランダムな値が生成されます
     let result;
     if (rng() < 1 / 50) {
         result = "アルティメットハイパーシャイニングミラクルゴッドカニ";
@@ -12,8 +13,8 @@ function kaniUranai() {
         const shuffledFirstWords = shuffleArray([...firstWords]);
         const shuffledSecondWords = shuffleArray([...secondWords]);
 
-        const firstWord = shuffledFirstWords[Math.floor(rng() * firstWords.length)];
-        const secondWord = shuffledSecondWords[Math.floor(rng() * secondWords.length)];
+        const firstWord = shuffledFirstWords[Math.floor(rng1() * firstWords.length)];
+        const secondWord = shuffledSecondWords[Math.floor(rng2() * secondWords.length)];
 
         result = `${firstWord}${secondWord}カニ`;
     }
