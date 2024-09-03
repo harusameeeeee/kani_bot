@@ -5,7 +5,9 @@ function kaniUranai() {
     // シード付き乱数生成器の初期化
     const rng = seedrandom();
     let result;
-    if (rng() < 1 / 20) {
+    if (rng() < 1 / 50) {
+        result = "アルティメットハイパーシャイニングミラクルゴッドカニ";
+    } else if (rng() < 1 / 20) {
         result = "エビ";
     } else {
         const firstWord = firstWords[Math.floor(rng() * firstWords.length)];
