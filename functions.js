@@ -35,6 +35,58 @@ function shuffleArray(array, rng) {
     return array;
 }
 
+async function mentionAllReactorsByLink(interaction, messageLink, messageContent) {
+    try {
+        // メッセージリンクを分解して、guild_id, channel_id, message_id を取得
+        const regex = /https:\/\/discord\.com\/channels\/(\d+)\/(\d+)\/(\d+)/;
+        const matches = messageLink.match(regex);
+
+        if (!matches) {
+            await interaction.reply('無効なメッセージリンクです。');
+            return;
+        }
+
+        const guildId = matches[1];
+        const channelId = matches[2];
+        const messageId = matches[3];
+
+        // チャンネルを取得してメッセージを取得
+        const channel = await interaction.client.channels.fetch(channelId);
+        const targetMessage = await channel.messages.fetch(messageId);
+
+        // すべてのリアクションを取得
+        const reactions = targetMessage.reactions.cache;
+
+        // リアクションが存在しない場合
+        if (reactions.size === 0) {
+            await interaction.reply('このメッセージにリアクションはありません。');
+            return;
+        }
+
+        let allUsers = new Set();  // 重複を避けるためにSetを使う
+
+        // すべてのリアクションをループ
+        for (const reaction of reactions.values()) {
+            const users = await reaction.users.fetch();  // 各リアクションのユーザーを取得
+            users.forEach(user => allUsers.add(user));    // ユーザーをSetに追加
+        }
+
+        // メンションを作成
+        const mentions = Array.from(allUsers).map(user => user.toString()).join(' ');
+
+        if (mentions) {
+            // リアクションをつけたメンバーにメンションをつけて、メッセージを送信
+            await interaction.reply(`${mentions} ${messageContent}`);
+        } else {
+            await interaction.reply('リアクションをつけたユーザーはいません。');
+        }
+    } catch (error) {
+        console.error(error);
+        await interaction.reply('エラーが発生しました。リンクが正しいか確認してください。');
+    }
+}
+
 module.exports = {
-    kaniUranai
+    kaniUranai,
+    mentionAllReactorsByLink
 }
