@@ -51,6 +51,12 @@ async function mentionAllReactorsByLink(interaction, messageLink, messageContent
 
 async function mentionAllThreadMembers(interaction, messageContent) {
     try {
+        // 現在のチャンネルがスレッドかどうかを確認
+        if (!interaction.channel.isThread()) {
+            await interaction.reply('このコマンドはスレッド内でのみ使用できます。');
+            return; // スレッドでない場合は処理を終了
+        }
+        
         // 現在のスレッドを取得
         const thread = interaction.channel;
 
