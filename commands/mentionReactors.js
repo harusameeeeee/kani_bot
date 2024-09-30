@@ -11,7 +11,8 @@ module.exports = {
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('メッセージ')
-                .setDescription('メンション先に送るメッセージ')),
+                .setDescription('メンション先に送るメッセージ')
+                .setRequired(true)),
     async execute(interaction) {
         const messageLink = interaction.options.getString('message_link');
         const messageContent = interaction.options.getString('message_content');
