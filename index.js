@@ -1,7 +1,7 @@
 require('dotenv').config();
 const token = process.env.TOKEN
 const test = process.env.TEST
-const { kaniUranai } = require('./functions');
+const { kaniUranai } = require('./functions/functions');
 const fs = require('fs');
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
 

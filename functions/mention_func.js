@@ -1,40 +1,3 @@
-const seedrandom = require('seedrandom');
-const { firstWords, secondWords } = require("./strings/words.js");
-
-function kaniUranai() {
-    const rng1 = seedrandom(); // シードを指定しない場合、ランダムな値が生成されます
-    const rng2 = seedrandom(); // シードを指定しない場合、ランダムな値が生成されます
-    let result;
-    
-    if (rng1() < 1 / 50) {
-        result = "アルティメットハイパーシャイニングミラクルゴッドカニ";
-    } else if (rng1() < 1 / 20) { // rng() ではなく rng1() を使用
-        result = "エビ";
-    } else {
-        // 配列が空でないか確認
-        if (firstWords.length === 0 || secondWords.length === 0) {
-            throw new Error("firstWords または secondWords が空です");
-        }
-
-        const shuffledFirstWords = shuffleArray([...firstWords], rng1);
-        const shuffledSecondWords = shuffleArray([...secondWords], rng2);
-
-        const firstWord = shuffledFirstWords[Math.floor(rng1() * firstWords.length)];
-        const secondWord = shuffledSecondWords[Math.floor(rng2() * secondWords.length)];
-
-        result = `${firstWord}${secondWord}カニ`;
-    }
-    return `あなたは   **${result}**   です`;
-}
-
-function shuffleArray(array, rng) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(rng() * (i + 1)); // Math.random() から rng() に変更
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
 async function mentionAllReactorsByLink(interaction, messageLink, messageContent) {
     try {
         // メッセージリンクを分解して、guild_id, channel_id, message_id を取得
@@ -76,7 +39,7 @@ async function mentionAllReactorsByLink(interaction, messageLink, messageContent
 
         if (mentions) {
             // リアクションをつけたメンバーにメンションをつけて、メッセージを送信
-            await interaction.reply(`${mentions} ${messageContent}`);
+            await interaction.reply(`${mentions}\n ${messageContent}`);
         } else {
             await interaction.reply('リアクションをつけたユーザーはいません。');
         }
@@ -86,7 +49,30 @@ async function mentionAllReactorsByLink(interaction, messageLink, messageContent
     }
 }
 
+async function mentionAllThreadMembers(interaction, messageContent) {
+    try {
+        // 現在のスレッドを取得
+        const thread = interaction.channel;
+
+        // スレッド参加者を取得
+        const members = thread.members;
+
+        // メンションを作成
+        const mentions = members.map(member => member.user.toString()).join(' ');
+
+        if (mentions) {
+            // 参加者にメンションをつけて、メッセージを送信
+            await interaction.reply(`${mentions}\n ${messageContent}`);
+        } else {
+            await interaction.reply('このスレッドに参加しているメンバーはいません。');
+        }
+    } catch (error) {
+        console.error(error);
+        await interaction.reply('エラーが発生しました。スレッドが正しく取得できませんでした。');
+    }
+}
+
 module.exports = {
-    kaniUranai,
-    mentionAllReactorsByLink
+    mentionAllReactorsByLink,
+    mentionAllThreadMembers
 }

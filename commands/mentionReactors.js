@@ -1,18 +1,17 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { mentionAllReactorsByLink } = require('../functions'); // 別ファイルから関数をインポート
+const { mentionAllReactorsByLink } = require('../functions/mention_func'); // 別ファイルから関数をインポート
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('mention_all_reactors')
-        .setDescription('リアクションを付けた全メンバーにメンションを付けてメッセージを送信します。')
+        .setDescription('指定したメッセージにリアクションを付けた全メンバーに、メンションを付けてメッセージを送信します。')
         .addStringOption(option =>
-            option.setName('message_link')
-                .setDescription('メッセージリンク')
+            option.setName('メッセージリンク')
+                .setDescription('メッセージのリンクを指定')
                 .setRequired(true))
         .addStringOption(option =>
-            option.setName('message_content')
-                .setDescription('メンション先に送るメッセージ')
-                .setRequired(true)),
+            option.setName('メッセージ')
+                .setDescription('メンション先に送るメッセージ')),
     async execute(interaction) {
         const messageLink = interaction.options.getString('message_link');
         const messageContent = interaction.options.getString('message_content');
