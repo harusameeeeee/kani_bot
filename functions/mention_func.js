@@ -56,15 +56,17 @@ async function mentionAllThreadMembers(interaction, messageContent) {
             await interaction.reply('このコマンドはスレッド内でのみ使用できます。');
             return; // スレッドでない場合は処理を終了
         }
-        
-        // 現在のスレッドを取得
+
+        // スレッドを取得
         const thread = interaction.channel;
 
         // スレッド参加者を取得
-        const members = thread.members;
-
+        const members = await thread.members.fetch(); // Collection形式で取得される
+       
         // メンションを作成
-        const mentions = members.map(member => member.user.toString()).join(' ');
+        // CollectionからメンバーのIDを取得し、メンション形式に整形
+        const mentions = Array.from(members.values())
+            .map(member => `<@${member.id}>`).join(' ');
 
         if (mentions) {
             // 参加者にメンションをつけて、メッセージを送信
