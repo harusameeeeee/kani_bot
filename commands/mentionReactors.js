@@ -6,11 +6,11 @@ module.exports = {
         .setName('mention_all_reactors')
         .setDescription('指定したメッセージにリアクションを付けた全メンバーに、メンションを付けてメッセージを送信します。')
         .addStringOption(option =>
-            option.setName('メッセージリンク')
+            option.setName('message_link')
                 .setDescription('メッセージのリンクを指定')
                 .setRequired(true))
         .addStringOption(option =>
-            option.setName('メッセージ')
+            option.setName('message_content')
                 .setDescription('メンション先に送るメッセージ')
                 .setRequired(true)),
     async execute(interaction) {

@@ -6,7 +6,7 @@ module.exports = {
         .setName('mention_all_thread_members')
         .setDescription('現在のスレッド参加者全員にメンションを付けてメッセージを送信します。')
         .addStringOption(option =>
-            option.setName('メッセージ')
+            option.setName('message_content')
                 .setDescription('メンション先に送るメッセージ')
                 .setRequired(true)),
     async execute(interaction) {
